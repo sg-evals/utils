@@ -20,7 +20,6 @@ package mount
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -205,7 +204,7 @@ func TestIsLikelyNotMountPoint(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		base, err := ioutil.TempDir("", test.fileName)
+		base, err := os.MkdirTemp("", test.fileName)
 		if err != nil {
 			t.Fatal(err.Error())
 		}
@@ -290,7 +289,7 @@ func TestFormatAndMount(t *testing.T) {
 			Interface: &fakeMounter,
 			Exec:      fakeExec,
 		}
-		base, err := ioutil.TempDir("", test.device)
+		base, err := os.MkdirTemp("", test.device)
 		if err != nil {
 			t.Fatal(err.Error())
 		}
